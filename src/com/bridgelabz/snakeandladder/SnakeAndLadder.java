@@ -1,34 +1,40 @@
 package com.bridgelabz.snakeandladder;
-import java.util.Random;
+
 public class SnakeAndLadder {
-	public static final int FINAL_POSITION = 100;
-	
+
 	public static void main(String[] args) {
-		Random random = new Random();
+
 		//Variables
-		int playerPosition = 0;
-		int diceRollNum = random.nextInt(6) + 1;
-		int moveOption = random.nextInt(3);
-		System.out.println("------------SNAKE AND LADDER----------------");
-		
-		
-		playerPosition = players(moveOption, diceRollNum);
-		
-		System.out.println("Player Position is:" + playerPosition);
-		
-		
-		
+		int finalPosition = 0, stepCounter = 0;
+		// Initializing position to 0
+		int firstPlayerPosition = 0, secondPlayerPosition = 0;
+
+
+		//Object
+
+		Player firstPlayer = new Player();
+		Player secondPlayer = new Player();
+
+
+		while(finalPosition < 100 && finalPosition > 0) {
+			firstPlayerPosition = firstPlayer.player(firstPlayerPosition);
+			secondPlayerPosition = secondPlayer.player(secondPlayerPosition);
+
+
+			stepCounter += 1;
+			finalPosition = Math.max(firstPlayerPosition, secondPlayerPosition);
+
+			if (firstPlayerPosition == 100) {
+				System.out.println("First Player Wins!");
+				break;
+			}
+			else if (secondPlayerPosition == 100)
+				System.out.println("Second Player Wins!");
+
+		}
+		System.out.println(stepCounter);
+
+
 	}
-	
-	public static int players(int moveOption, int diceRoll) {
-		int playerPosition = 0;
-		if(moveOption == 1) 
-			playerPosition +=diceRoll;
-		else if (moveOption == 2)
-			playerPosition -= diceRoll;
-		
-		if (playerPosition < 0)
-			playerPosition = 0;
-		return playerPosition;
-	}
+
 }
